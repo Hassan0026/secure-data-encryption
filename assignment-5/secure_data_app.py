@@ -48,13 +48,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ------------------- Utility Functions -------------------
-def generate_key(passkey: str, salt: bytes) -> bytes:
-    kdf = PBKDF2HMAC(
-        algorithm=hashes.SHA256(),
+def generate_key(passkey: str, salt: bytes) -> bytes:    
+    kdf = hashlib.pbkdf2_hmac(
+        algorithm=hashed.SHA256(),
         length=32,
         salt=salt,
         iterations=100000,
-        backend=default_backend()
     )
     return base64.urlsafe_b64encode(kdf.derive(passkey.encode()))
 
